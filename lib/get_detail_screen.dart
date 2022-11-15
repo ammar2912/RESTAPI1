@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class GetDataDetailScreen extends StatefulWidget {
   int? value;
-  GetDataDetailScreen({Key? key}) : super(key: key);
+  GetDataDetailScreen({Key? key, required value}) : super(key: key);
 
   @override
   State<GetDataDetailScreen> createState() => _GetDataDetailScreenState(value);
@@ -44,32 +44,38 @@ class _GetDataDetailScreenState extends State<GetDataDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Get data api regres"),
-      ),
-      body: Container(
-        child: data==null 
-          ? Center(
-            child: Container(
-              width: 100, 
-              height: 100, 
-              decoration: BoxDecoration(
-                 borderRadius: BorderRadius.circular(6),
-                 color: Colors.grey),
-                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(
-                      height: 10,
+        appBar: AppBar(
+          title: Text("Get data api regres"),
+        ),
+        body: Container(
+            child: data == null
+                ? Center(
+                    child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            color: Colors.grey),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Loading . . .",
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        )))
+                : Container(
+                    child: ListTile(
+                      leading: Image.network(data!["avatar"]),
+                      title:
+                          Text(data!["first_name"] + " " + data!["last_name"]),
+                      subtitle: Text(data!["email"]),
                     ),
-                    Text("Loading . . .", style: TextStyle(color: Colors.white),
-                    )
-                  ],
-                 )))
-                 : Container(child: ListTile(leading: Image.network(data!["avatar"]),
-                 title: Text(data!["first_name"]+ " " + data!["last_name"]),
-                 sub),))
-    );
+                  )));
   }
 }
